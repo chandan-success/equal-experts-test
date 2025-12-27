@@ -60,7 +60,7 @@ public class ShoppingCartTest {
         PriceService priceService = new DummayPriceService();
         ShoppingCart cart = new ShoppingCart(priceService);
         InvalidQuantityException exception = assertThrows(InvalidQuantityException.class, () -> cart.addToCart("cornflakes", 0));
-        assertEquals("403",exception.getErrorCode().getCode());
+        assertEquals("402",exception.getErrorCode().getCode());
     }
 }
 

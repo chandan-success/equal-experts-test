@@ -1,3 +1,4 @@
+import exception.InvalidQuantityException;
 import impl.HttpPriceService;
 import org.junit.jupiter.api.Test;
 import service.PriceService;
@@ -7,6 +8,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ShoppingCartTest {
 
@@ -51,6 +53,14 @@ public class ShoppingCartTest {
         PriceService priceService = new HttpPriceService();
         BigDecimal price = priceService.getPrice("cornflakes");
         assertEquals(new BigDecimal("2.52"), price);
+    }
+
+    @Test
+    void invalidQuantityTest() {
+        PriceService priceService = new DummayPriceService();
+        ShoppingCart cart = new ShoppingCart(priceService);
+        InvalidQuantityException exception = assertThrows(InvalidQuantityException.class, () -> cart.addToCart("cornflakes", 0));
+        assertEquals("403",exception.getErrorCode().getCode());
     }
 }
 

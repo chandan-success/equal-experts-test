@@ -1,3 +1,5 @@
+import exception.ErrorCode;
+import exception.InvalidQuantityException;
 import service.PriceService;
 
 import java.io.IOException;
@@ -21,7 +23,7 @@ public class ShoppingCart {
 
     public void addToCart(String productName, int quantity) throws IOException, InterruptedException {
         if (quantity <= 0) {
-            throw new IllegalArgumentException("Quantity must be positive");
+            throw new InvalidQuantityException(ErrorCode.INVALID_QUANTITY);
         }
         CartItem existingItem = items.get(productName);
 
